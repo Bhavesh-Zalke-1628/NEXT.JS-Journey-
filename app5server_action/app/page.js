@@ -1,17 +1,13 @@
-import Image from "next/image";
-import fs from 'fs/promises'
+"use client"
+
+import { useRef } from "react";
+import { submitAction } from "./actions/form";
 export default function Home() {
 
-  const submitAction = async (e) => {
-    "use server"
-
-    console.log(e.get('name'), e.get('add'))
-    fs.writeFile("bhavesh.txt", "i am good")
-  }
+  const ref = useRef()
   return (
-
     <div className=" w-2/3 mx-auto my-5" >
-      <form action={submitAction}>
+      <form ref={ref} action={(e) => { submitAction(e); ref.current.reset() }}>
         <div >
           <label htmlFor="name">name</label>
           <input
